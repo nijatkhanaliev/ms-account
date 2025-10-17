@@ -7,6 +7,10 @@ stages:
 variables:
   IMAGE_NAME: registry.gitlab.com/nijatkhanaliev/ms-account
   GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  TESTCONTAINERS_RYUK_DISABLED: "true"
+  TESTCONTAINERS_CHECKS_DISABLE: "true"
 
 before_script:
   - export GRADLE_USER_HOME=$GRADLE_USER_HOME
@@ -27,8 +31,17 @@ build:
 test:
   stage: test
   image: gradle:8.4-jdk21
+  services:
+    - name: docker:24.0.2-dind
+      alias: docker
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+    TESTCONTAINERS_RYUK_DISABLED: "true"
+    TESTCONTAINERS_CHECKS_DISABLE: "true"
   script:
-    - gradle test
+    - docker info
+    - gradle test -Dspring.profiles.active=test
   rules:
     - if: '$CI_COMMIT_BRANCH'
     - if: '$CI_COMMIT_TAG'
