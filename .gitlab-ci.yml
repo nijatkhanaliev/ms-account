@@ -33,7 +33,7 @@ est:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_TLS_CERTDIR: ""
   before_script:
-    - apk add --no-cache openjdk21 gradle bash
+    - apk add --no-cache openjdk17 gradle bash
   script:
     - gradle test
   rules:
