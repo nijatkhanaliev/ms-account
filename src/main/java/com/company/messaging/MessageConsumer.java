@@ -12,12 +12,12 @@ import static com.company.config.RabbitMQConfig.ACCOUNT_QUEUE;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AccountConsumer {
+public class MessageConsumer {
 
     private final AccountService accountService;
 
     @RabbitListener(queues = ACCOUNT_QUEUE)
-    private void handleAccountCreated(AccountCreatedEvent event){
+    private void consumerAccountCreated(AccountCreatedEvent event){
         try {
             log.info("Processing account created event: {}", event);
             accountService.createAccount(event.getUserId());
