@@ -16,7 +16,7 @@ public class RabbitMQConfig {
 
     public static final String ACCOUNT_QUEUE = "account-queue";
     public static final String ACCOUNT_EXCHANGE = "account-exchange";
-    public static final String ACCOUNT_ROUTING_KEY = "account.*";
+    public static final String ACCOUNT_ROUTING_KEY = "user.registered";
 
 
     @Bean
@@ -50,7 +50,7 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding bindingEmailDLQ(Queue accountDLQ, TopicExchange deadLetterExchange) {
+    public Binding bindingAccountDLQ(Queue accountDLQ, TopicExchange deadLetterExchange) {
         return BindingBuilder.bind(accountDLQ)
                 .to(deadLetterExchange)
                 .with(ACCOUNT_ROUTING_KEY + ".dlq");
