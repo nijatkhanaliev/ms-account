@@ -19,6 +19,7 @@ import static com.company.exception.constant.ErrorCode.ALREADY_EXISTS;
 import static com.company.exception.constant.ErrorCode.DATA_NOT_FOUND;
 import static com.company.exception.constant.ErrorMessage.ALREADY_EXISTS_MESSAGE;
 import static com.company.exception.constant.ErrorMessage.DATA_NOT_FOUND_MESSAGE;
+import static com.company.model.enums.AccountStatus.ACTIVE;
 
 @Slf4j
 @Service
@@ -59,6 +60,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = new Account();
         account.setUserId(userId);
         account.setBalance(BigDecimal.ZERO);
+        account.setStatus(ACTIVE);
         accountRepository.save(account);
     }
 
